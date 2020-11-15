@@ -53,6 +53,7 @@ const GET_MOVIES = gql`
     movies {
       id
       poster_path
+      isLiked @client
     }
   }
 `;
@@ -61,9 +62,6 @@ const POSTER_URL = "https://image.tmdb.org/t/p/w300";
 
 export default () => {
   const { loading, error, data } = useQuery(GET_MOVIES);
-
-  console.log(loading, error);
-  console.log(data);
 
   return (
     <Container>
@@ -75,7 +73,12 @@ export default () => {
       {!loading && data.movies && (
         <Movies>
           {data.movies.map((movie) => (
-            <Movie key={movie.id} id={movie.id} bg={`${POSTER_URL}${movie.poster_path}`} />
+            <Movie
+              key={movie.id}
+              id={movie.id}
+              bg={`${POSTER_URL}${movie.poster_path}`}
+              isLiked={movie.isLiked}
+            />
           ))}
         </Movies>
       )}

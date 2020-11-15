@@ -52,6 +52,7 @@ const Poster = styled.div`
 
 const Suggestions = styled.div`
   width: 100%;
+  padding-bottom: 30px;
   color: white;
   display: flex;
   flex-direction: column;
@@ -112,6 +113,12 @@ export default () => {
   const { loading, data } = useQuery(GET_MOVIE, {
     variables: { id: parsedId },
   });
+
+  // TODO : show Like state
+
+  if (!data) {
+    return `Error !`;
+  }
 
   return (
     <Container>
